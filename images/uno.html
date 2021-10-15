@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html lang="es" prefix="og: https://ogp.me/ns#" >
+	
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){const n=e[t];Object.defineProperty(e,t,{get:n||function(){},set:n=>{e["rocket"+t]=n}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mouseover","touchmove","touchstart","touchend","touchcancel","touchforcechange","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+
+<!-- Optimización para motores de búsqueda de Rank Math - https://s.rankmath.com/home -->
+<title>Que Es Un Sistema Informático. Definición Y Novedades 2021</title><style id="rocket-critical-css">:root{--wp-admin-theme-color:#007cba;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-20:#005a87}:root{--wp-admin-theme-color:#007cba;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-20:#005a87}:root{--wp-admin-theme-color:#007cba;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-20:#005a87}:root{--wp-admin-theme-color:#007cba;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-20:#005a87}*{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%;height:auto;object-fit:contain}h1{margin:5px 0}p{margin:0;margin-bottom:20px;overflow-wrap:break-word}ul li{overflow-wrap:break-word}a{text-decoration:none}header{z-index:999}header label{display:none}input:not([type=submit]):not([type=radio]):not([type=checkbox]):not([type=file]){padding:.5rem .6rem;font-size:1.1rem;outline:0}input:not([type=submit]):not([type=radio]):not([type=checkbox]):not([type=file]){display:inline-block;width:100%;padding:.5rem .75rem;-webkit-box-shadow:inset 0 1px 3px #f6f6f7;box-shadow:inset 0 1px 3px #f6f6f7;background-color:#fff;border-radius:2px}button,input{font-family:inherit;font-size:inherit;line-height:inherit;outline:0}iframe{max-width:100%}strong{font-weight:700}i{font-style:italic}.alignleft{display:block;padding:0}.alignleft{float:left;margin:.5em 1em 1em 0}.site-header{width:100%;margin-bottom:8px;width:100%;z-index:999;opacity:1;min-height:56px}.site-header-content{margin:0 auto;position:relative;display:flex;align-items:center;justify-content:space-between}.site-logo{display:inline-block;line-height:56px}.site-logo img{vertical-align:middle}.content-single{flex-wrap:wrap}.content-single{margin:0 auto;position:relative}.custom-logo{overflow:hidden}.article-full{width:100%}.article-full{display:inline-block;vertical-align:top}.the-content{margin-bottom:1.5rem}h1+.the-content{margin-top:.75rem}.the-content ul{margin:0 0 20px 0;font-size:18px;color:#222!important}.the-content ul{list-style:disc}.the-content ul li{margin:0 0 12px 40px;padding-left:2px;line-height:1.6}.asap-icon-single{color:#fff!important;display:inline-block;text-align:center}.asap-icon-single{margin:0;margin-right:7px;padding:.75rem;display:flex;align-items:center;justify-content:center}.icon-facebook{background:#3b5998}.icon-facebook-m{background:#00c6ff}.icon-twitter{background:#00acee}.icon-pinterest{background:#c8232c}.icon-whatsapp{background:#25d366}.icon-telegram{background:#08c}.social-buttons{margin-top:.5rem;margin-bottom:1.5rem;width:100%;position:relative}.social-buttons.flexbox{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;display:inline-flex}.social-fix{position:fixed;left:0;bottom:0;z-index:999;display:flex;width:100%}.social-fix .social-buttons{margin:0}.social-fix .asap-icon-single{flex:auto;margin:0}.go-top{display:none;height:45px;width:45px;line-height:40px;text-align:center;border-radius:100px;font-size:30px;position:fixed;bottom:20px;right:20px}.go-top>span{display:none}.arrow{border:solid #fff;border-width:0 2px 2px 0;display:inline-block;padding:4px}.arrow-up{transform:rotate(-135deg);-webkit-transform:rotate(-135deg)}.the-content .post-index ul{margin-bottom:0}.the-content .post-index li{margin-left:34px;margin-bottom:6px}.the-content .post-index a,.the-content .post-index li{line-height:1.6}.the-content .post-index .classh3{margin-left:56px}.the-content .post-index #index-table{margin-top:18px}.search-responsive{display:inline-block}.search-responsive{position:relative;width:100%;margin-bottom:2rem;box-shadow:0 2px 2px 0 rgba(0,0,0,.15)}.search-responsive form{position:relative;width:100%;margin:0 auto}.search-responsive input:not([type=submit]):not([type=radio]):not([type=checkbox]):not([type=file]){display:inline-block;width:100%;padding:10px 10px 10px 20px;font-size:18px;-webkit-box-shadow:none!important;box-shadow:none!important;border:none;outline:0;background-color:#fff;border-radius:2px;height:60px;line-height:60px}.search-responsive button.s-btn{height:60px;line-height:68px;opacity:.6;width:auto;padding-right:24px;padding-left:20px}.search-responsive button.s-btn:before{content:""}button.s-btn{position:absolute;right:0;top:0;height:40px;width:40px;background:0 0;color:#484848;border-radius:0;border:0;padding:0;font-size:1.3em}#commentform input{margin-top:15px}#commentform input{border-radius:2px;outline:0}.comment-form-cookies-consent{display:none}.comment-notes{display:none}#btn-menu{display:none}#menu{-webkit-touch-callout:none;z-index:100;position:relative;display:inline-block}#menu ul,#menu ul li{list-style:none;padding:0;margin:0;box-sizing:border-box}#menu ul a{text-decoration:none}#menu>ul{padding:0;margin:0;position:relative}#menu>ul>li{display:inline-block;text-align:left;line-height:56px;padding:0;width:auto}.circle{width:28px;height:28px;position:relative}.line{position:absolute;height:2px;width:100%;border-radius:8px}.top{top:18%}.middle{top:48%}.bottom{top:78%}@media (max-width:1050px){#menu ul{min-height:auto!important}#menu{height:100%;width:100%;position:fixed;left:0;transform:translateX(-100%);background:#f9f9f9;overflow:auto!important;padding-bottom:56px}#menu>ul{width:100%}#menu>ul>li{width:100%;display:inline-table;background-color:#f9f9f9}#menu>ul>li>a{padding:0 10px 0 20px}#menu>ul{font-size:18px}}@media (min-width:1050px){#menu>ul{text-align:right!important}#menu>ul>li{line-height:56px;margin:0 0 0 30px}}@media (min-width:768px) and (max-width:1050px){.article-full{padding-left:1rem}}@media (min-width:1050px){.social-fix{display:none}.site-header{position:sticky;top:0}.content-single{display:flex}.content-single,.site-header-content{padding-left:1rem;padding-right:1rem}.search-responsive{display:none}.icon-facebook-m{display:none}}@media (max-width:1050px){body,html{margin:0;height:100%}.site-header{position:fixed}header label{display:block;height:56px;line-height:56px;padding:12px 20px 0 20px}header #menu a{display:block;color:#222!important}.content-single{display:block}.go-top{width:100%;position:relative;display:block;border-radius:0!important;bottom:auto;right:auto}.go-top>span{display:inline;margin-right:10px;font-size:1.2rem}.site-logo{padding:0 1rem}.article-full{width:100%!important;padding:0 1rem 1rem 1rem!important;margin:0 auto;display:block}.content-single{padding-top:4rem}.site-logo img{max-height:56px}}</style><link rel="preload" href="https://mundoapps.net/wp-content/cache/min/1/bf0466ee37750a4ecf3240dd94acfd0c.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media="all" data-minify="1" />
+<meta name="description" content="Si quieres saber que es un sistema informático, Como esta compuesto, Cuales han sido sus avances y características aquí lo sabrás."/>
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+<link rel="canonical" href="https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Que Es Un Sistema Informático. Definición Y Novedades 2021" />
+<meta property="og:description" content="Si quieres saber que es un sistema informático, Como esta compuesto, Cuales han sido sus avances y características aquí lo sabrás." />
+<meta property="og:url" content="https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" />
+<meta property="og:site_name" content="Mundo Apps" />
+<meta property="article:tag" content="que es un sistema informático" />
+<meta property="article:tag" content="sistema informático" />
+<meta property="article:section" content="Tutoriales" />
+<meta property="og:image" content="https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático.jpg" />
+<meta property="og:image:secure_url" content="https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático.jpg" />
+<meta property="og:image:width" content="700" />
+<meta property="og:image:height" content="400" />
+<meta property="og:image:alt" content="Que es un sistema informático" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="article:published_time" content="2020-08-03-0413:39:49-04:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Que Es Un Sistema Informático. Definición Y Novedades 2021" />
+<meta name="twitter:description" content="Si quieres saber que es un sistema informático, Como esta compuesto, Cuales han sido sus avances y características aquí lo sabrás." />
+<meta name="twitter:site" content="@Javired" />
+<meta name="twitter:creator" content="@Javired" />
+<meta name="twitter:image" content="https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático.jpg" />
+<script type="application/ld+json" class="rank-math-schema">{"@context":"https://schema.org","@graph":[{"@type":["Person","Organization"],"@id":"https://mundoapps.net/#person","name":"Javired"},{"@type":"WebSite","@id":"https://mundoapps.net/#website","url":"https://mundoapps.net","name":"Javired","publisher":{"@id":"https://mundoapps.net/#person"},"inLanguage":"es"},{"@type":"ImageObject","@id":"https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-inform\u00e1tico.jpg","url":"https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-inform\u00e1tico.jpg","width":"700","height":"400","caption":"Que es un sistema inform\u00e1tico","inLanguage":"es"},{"@type":"Person","@id":"https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/#author","name":"Javired","image":{"@type":"ImageObject","@id":"https://secure.gravatar.com/avatar/103a9ea2d084c3abef3d041f2d3be271?s=96&amp;d=mm&amp;r=g","url":"https://secure.gravatar.com/avatar/103a9ea2d084c3abef3d041f2d3be271?s=96&amp;d=mm&amp;r=g","caption":"Javired","inLanguage":"es"}},{"@type":"WebPage","@id":"https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/#webpage","url":"https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/","name":"Que Es Un Sistema Inform\u00e1tico. Definici\u00f3n Y Novedades 2021","datePublished":"2020-08-03T13:39:49-04:00","dateModified":"2020-08-03T13:39:49-04:00","author":{"@id":"https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/#author"},"isPartOf":{"@id":"https://mundoapps.net/#website"},"primaryImageOfPage":{"@id":"https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-inform\u00e1tico.jpg"},"inLanguage":"es"},{"@type":"BlogPosting","headline":"Que Es Un Sistema Inform\u00e1tico. Definici\u00f3n Y Novedades","datePublished":"2020-08-03-0413:39:49-04:00","dateModified":"2020-08-03-0413:39:49-04:00","author":{"@type":"Person","name":"David Cabriles"},"description":"Si quieres saber que es un sistema inform\u00e1tico, Como esta compuesto, Cuales han sido sus avances y caracter\u00edsticas aqu\u00ed lo sabr\u00e1s.","name":"Que Es Un Sistema Inform\u00e1tico. Definici\u00f3n Y Novedades","@id":"https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/#schema-70065","isPartOf":{"@id":"https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/#webpage"},"publisher":{"@id":"https://mundoapps.net/#person"},"image":{"@id":"https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-inform\u00e1tico.jpg"},"inLanguage":"es","mainEntityOfPage":{"@id":"https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/#webpage"}}]}</script>
+<!-- /Plugin Rank Math WordPress SEO -->
+
+<link rel='dns-prefetch' href='//ajax.googleapis.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Mundo Apps &raquo; Comentario Que Es Un Sistema Informático. Definición Y Novedades del feed" href="https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/feed/" />
+
+
+
+
+
+<style id='i2-pros-cons-block-style-css-inline-css' type='text/css'>
+ .i2-pros-cons-main-wrapper{border: 2px solid #eaeaea;} .i2-pros-cons-main-wrapper .i2pctitle{text-align: center!important;} .i2-pros-cons-main-wrapper .i2pctitle{color: #ffffff!important;} .i2-pros-cons-main-wrapper .i2pctitle{background-color: #6ea6af!important;} .i2-pros-cons-wrapper .i2-cons-title,.i2-pros-cons-wrapper .i2-pros-title{text-align: center!important;} .i2-pros-cons-wrapper .i2-cons-title,.i2-pros-cons-wrapper .i2-pros-title{color: #ffffff!important;}.i2-pros-cons-wrapper .i2-pros-title {background-color: #009ef9 !important;} .i2-pros-cons-wrapper .i2-cons-title{background-color: #e25e2b!important;} .i2-pros-cons-wrapper .i2-pros{background-color: #f2f2f2!important;} .i2-pros-cons-wrapper .i2-cons{background-color: #f2f2f2!important;} .i2-pros-cons-wrapper .section ul li i{top: 8px!important;} .i2-pros-cons-wrapper .i2-pros  ul li i{color: #6ea6af!important;} .i2-pros-cons-wrapper .i2-cons ul li i{color: #e25e2b!important;} .i2-pros-cons-main-wrapper .i2-button-wrapper a{color: #ffffff!important;} .i2-pros-cons-main-wrapper .i2-button-wrapper a{background-color: #009ef9; border-color:#009ef9;} .i2-pros-cons-main-wrapper .i2-button-wrapper a:hover{background-color: #355c63; border-color:#355c63;} .i2-pros-cons-main-wrapper .i2-button-wrapper a{line-height : 35px; font-size:19.25px;} .i2-pros-cons-main-wrapper .i2-button-wrapper a{min-width:50%; } .i2-pros-cons-main-wrapper .i2-button-wrapper a{background-color: #009ef9!important;
+        -moz-box-shadow: 0px 1px 0px 0px #7bcdfc;
+        -webkit-box-shadow: 0px 1px 0px 0px #7bcdfc;
+        box-shadow: 0px 1px 0px 0px #7bcdfc;
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #009ef9), color-stop(1, #355c63));
+        background:-moz-linear-gradient(top, #009ef9 5%, #355c63 100%);
+        background:-webkit-linear-gradient(top, #009ef9 5%, #355c63 100%);
+        background:-o-linear-gradient(top, #009ef9 5%, #355c63 100%);
+        background:-ms-linear-gradient(top, #009ef9 5%, #355c63 100%);
+        background:linear-gradient(to bottom, #009ef9 5%, #355c63 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#009ef9', endColorstr='#355c63',GradientType=0);
+        border:1px solid #009ef9;
+        text-shadow:0px 1px 0px #009ef9;
+        } .i2-pros-cons-main-wrapper .i2-button-wrapper a:hover {
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #355c63), color-stop(1, #009ef9));
+        background:-moz-linear-gradient(top, #355c63 5%, #009ef9 100%);
+        background:-webkit-linear-gradient(top, #355c63 5%, #009ef9 100%);
+        background:-o-linear-gradient(top, #355c63 5%, #009ef9 100%);
+        background:-ms-linear-gradient(top, #355c63 5%, #009ef9 100%);
+        background:linear-gradient(to bottom, #355c63 5%, #009ef9 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#355c63', endColorstr='#009ef9',GradientType=0);
+        background-color:#355c63;
+        }
+</style>
+
+
+
+
+<link rel='preload'   href='https://fonts.googleapis.com/css?family=Poppins%3A300%2C700&#038;display=swap&#038;ver=5.7.3' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" type='text/css' media='all' />
+<style id='rocket-lazyload-inline-css' type='text/css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(https://mundoapps.net/wp-content/plugins/rocket-lazy-load/assets/img/youtube.png) no-repeat;cursor:pointer}
+</style>
+<link rel="https://api.w.org/" href="https://mundoapps.net/wp-json/" /><link rel="alternate" type="application/json" href="https://mundoapps.net/wp-json/wp/v2/posts/4429" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://mundoapps.net/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://mundoapps.net/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.7.3" />
+<link rel='shortlink' href='https://mundoapps.net/?p=4429' />
+<meta name="generator" content="Site Kit by Google 1.34.0" />	
+<style>
+body {font-family: 'Poppins', sans-serif !important;background: #FFFFFF;font-weight: 300;}h1,h2,h3,h4,h5,h6 {font-family: 'Poppins', sans-serif !important;font-weight: 700;line-height: 1.3;}h1 {color:#222222 }h2,h3,h4,h5,h6 {color:#222222 }.article-loop p, .related-posts p, .last-post-sidebar p {font-family: 'Poppins', sans-serif !important;font-size: 18px !important;font-weight: 700 !important;}.article-loop .show-extract p {font-family: 'Poppins', sans-serif !important;font-weight: 700 !important;}a {color: #2E86C1;}.the-content .post-index span, .des-category .post-index span {font-size:18px;}.the-content .post-index li, .the-content .post-index a, .des-category .post-index li, .des-category .post-index a, .title-with-bar > span > a, .asap-pros-cons-title span, .asap-pros-cons ul li span {font-size: calc(18px - 2px);}.content-tags a, .tagcloud a {border:1px solid #2E86C1;}.content-tags a:hover, .tagcloud a:hover {color: #2E86C199;}p, .the-content ul li, .the-content ol li {color: #222222;font-size: 18px;line-height: 1.7;}.comment-author cite, .breadcrumb span, .primary-sidebar ul li a {color: #222222;}.comment-body p, #commentform input, #commentform textarea {font-size: calc(18px - 2px);}.breadcrumb a, .breadcrumb span {font-size: calc(18px - 5px);}.content-footer p, .content-footer li, .search-header input:not([type=submit]):not([type=radio]):not([type=checkbox]):not([type=file]) {font-size: calc(18px - 4px) !important;}h1 {font-size: 30px;}h2 {font-size: 28px;}h3 {font-size: 26px;}h4 {font-size: 24px;}.article-loop p, .last-post-sidebar p {font-size: 18px;}.site-header, .content-footer {background: #dd3333;}.title-with-bar {border-bottom:1px solid #dd3333 }.pagination a, #cookiesbox button, .nav-links a {background: #dd3333;color: #FFFFFF;}.pagination a:hover, .nav-links a:hover {background: #dd3333B3;}#cookiesbox button:hover {background: #dd3333CC;}.article-loop a:hover p {color: #2E86C1 !important;}#commentform input, #commentform textarea {border: 2px solid #dd3333;}.content-loop {max-width: 1300px;}.site-header-content {max-width: 1300px;}.content-footer {max-width: calc(1300px - 32px);}.content-footer-social {background: #dd33331A;}.content-single {max-width: 980px;}.content-page {max-width: 1300px;}.reply a, .go-top {background: #dd3333;color: #FFFFFF;}.reply a {border: 2px solid #dd3333;}#commentform input[type=submit] {background: #dd3333;color: #FFFFFF;}.site-header a, .content-footer a, .content-footer p, .content-footer .widget-area, header, header label {color: #ffffff;}header .line {background: #ffffff;}.site-logo img {max-width: 180px;}.search-header {margin-left: 0px;}#cookiesbox {border-top: 1px solid #dd3333;}.primary-sidebar {width:316px;}p.sidebar-title {font-size:calc(18px + 2px);}.popular-post-sidebar ol a {color:#222222;font-size:calc(18px - 2px);}.popular-post-sidebar ol li:before, .primary-sidebar div ul li:before {border-color: #dd3333;}.search-form input[type=submit] {background:#dd3333;}.search-form {border:2px solid #dd3333;}.sidebar-title:after,.title-with-bar-h1:after {background:#dd3333;}.single-nav .nav-prev a:before, .single-nav .nav-next a:before {border-color:#dd3333;}.single-nav a {color:#222222;font-size:calc(18px - 3px);}.the-content .post-index {border-top:2px solid #dd3333;}.the-content .post-index #show-table {color:#2E86C1;font-size: calc(18px - 3px);}.the-content .post-index .btn-show {font-size: calc(18px - 3px) !important;}.search-header form {width:200px;} .article-content {height: 196px;}.content-thin .content-cluster .article-content {height:160px !important;}.last-post-sidebar .article-content {height: 140px;margin-bottom: 8px }.related-posts .article-content {height: 120px;}@media (max-width:1050px) {.last-post-sidebar .article-content, .related-posts .article-content {height: 150px !important }}@media (max-width: 480px) {.article-content {height: 180px }}  .the-content .post-index #index-table {display:none;}  @media(max-width:480px) {h1, .title-with-bar-h1 {font-size: calc(30px - 8px);}h2 {font-size: calc(28px - 4px);}h3 {font-size: calc(26px - 4px);}}@media(min-width:1050px) {.content-thin {width: calc(95% - 316px);}#menu>ul {font-size: calc(18px - 2px);}#menu ul .menu-item-has-children:after {border: solid #ffffff;border-width: 0 2px 2px 0;}} .item-featured {margin-top:10px;}   .sticky {top: 22px !important;}.the-content h2:before {margin-top: -20px;height: 20px;}header {position:relative !important;}@media (max-width: 1050px) {.content-single, .content-page {padding-top: 0 !important;}.content-loop {padding: 2rem;}.author .content-loop, .category .content-loop {padding: 1rem 2rem 2rem 2rem;}}    @media (max-width: 1050px) {header label {width: 64px;height: 64px;position: fixed;padding:0;right: 1.5rem;bottom: 4rem;border-radius: 50%;-webkit-box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.5);box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.5);background-color: #fff;-webkit-transition: 300ms ease all;transition: 300ms ease all;z-index:101;display: flex;align-items: center;}.site-header-content {justify-content: center;}.line {background:#282828 !important;}.circle {margin:0 auto;width: 24px;height: 24px;} #menu {top:0;margin-top:0;} }  .content-footer .widget-area {padding-right:2rem;}footer {background: #dd3333;}.content-footer {padding:20px;}.content-footer p.widget-title {margin-bottom:10px;}.content-footer .logo-footer {width:100%;align-items:flex-start;}.content-footer-social {width: 100%;}.content-footer-social > div {max-width: calc(1300px - 32px);margin:0 auto;}@media (min-width:1050px) {.content-footer {padding:20px 0;}}@media (max-width:1050px) {.content-footer .logo-footer {margin:0 0 1rem 0 !important;}}  @media (max-width:1050px) {.content-footer {padding-bottom:44px;}}  
+</style>
+
+<meta name="theme-color" content="#dd3333">
+
+
+<script type="application/ld+json">
+	{
+	"@context": "http://schema.org",
+	"@type": "WebSite",
+	"name": "Mundo Apps",
+	"alternateName": "El Mundo De Las Apps",
+	"url": "https://mundoapps.net"
+	}
+</script>
+
+
+<script type="application/ld+json">	
+	{
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"mainEntityOfPage": {
+	"@type": "WebPage",
+	"@id": "https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/"
+	},
+	"headline": "Que Es Un Sistema Informático. Definición Y Novedades", 
+		"image": {
+			"@type": 
+				"ImageObject",
+				"url": "https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático-400x267.jpg"
+			},
+				
+	"author": {
+		"@type": "Person",
+		"name": "Javired"
+	},  
+	"publisher": {
+		"@type": "Organization",
+		"name": "Mundo Apps"	
+				
+	,
+	"logo": {
+		"@type": "ImageObject",
+		"url": "https://mundoapps.net/wp-content/uploads/2020/01/Banner-Original.png"
+		}	
+					
+	},
+	"datePublished": "2020-08-03",
+	"dateModified": "2020-08-03"
+}
+</script>
+
+	
+
+	
+		
+	
+<script type="rocketlazyloadscript" async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script type="rocketlazyloadscript">(adsbygoogle = window.adsbygoogle || []).push({"google_ad_client":"ca-pub-4394076679609229","enable_page_level_ads":true,"tag_partner":"site_kit"});</script><link rel="icon" href="https://mundoapps.net/wp-content/uploads/2020/01/cropped-Favicon-132-px-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://mundoapps.net/wp-content/uploads/2020/01/cropped-Favicon-132-px-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://mundoapps.net/wp-content/uploads/2020/01/cropped-Favicon-132-px-180x180.png" />
+<meta name="msapplication-TileImage" content="https://mundoapps.net/wp-content/uploads/2020/01/cropped-Favicon-132-px-270x270.png" />
+
+
+<style>
+    .table-responsive table{
+        border-collapse: collapse;
+        border-spacing: 0;
+        table-layout: auto;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 20px auto;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        min-height: 0.01%;
+        margin-bottom: 20px;
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #dddddd;
+        border-radius: 2px;
+    }
+    .table-responsive::-webkit-scrollbar-track-piece {
+        background: #fff;
+    }
+
+    @media (max-width: 992px) {
+        .table-responsive table{
+            width: auto!important;
+            margin:0 auto 15px auto!important;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .table-responsive {
+            width: 100%;
+            margin-bottom: 15px;
+            overflow-y: hidden;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+        .table-responsive::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .table-responsive .table {
+            max-width: 100%!important;
+        }
+    }
+    .wprt-container .table > thead > tr > th,
+    .wprt-container .table > tbody > tr > th,
+    .wprt-container .table > tfoot > tr > th,
+    .wprt-container .table > thead > tr > td,
+    .wprt-container .table > tbody > tr > td,
+    .wprt-container .table > tfoot > tr > td,
+    .wprt-container .table > tr > td{
+        border: 1px solid #dd3333!important;
+    }
+
+    .wprt-container .table > thead > tr > th,
+    .wprt-container .table > tbody > tr > th,
+    .wprt-container .table > tfoot > tr > th,
+    .wprt-container .table > thead > tr > td,
+    .wprt-container .table > tbody > tr > td,
+    .wprt-container .table > tfoot > tr > td,
+    .wprt-container .table > tr > td{
+        padding-top: 8px!important;
+        padding-right: 8px!important;
+        padding-bottom: 8px!important;
+        padding-left: 8px!important;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .wprt-container .table-responsive .table tr:nth-child(odd) {
+        background-color: #fff!important;
+    }
+
+    .wprt-container .table-responsive .table tr:nth-child(even){
+        background-color: #f9f9f9!important;
+    }
+
+    .wprt-container .table-responsive .table thead+tbody tr:nth-child(even) {
+        background-color: #fff!important;
+    }
+
+    .wprt-container .table-responsive .table thead+tbody tr:nth-child(odd){
+        background-color: #f9f9f9!important;
+    }
+    
+    
+    .table-responsive table p {
+        margin: 0!important;
+        padding: 0!important;
+    }
+
+    .table-responsive table tbody tr td, .table-responsive table tbody tr th{
+        background-color: inherit!important;
+    }
+
+</style>
+
+    <noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript><script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="rocketlazyloadscript" async src="https://www.googletagmanager.com/gtag/js?id=UA-157550809-1"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157550809-1');
+</script>
+</head>
+	
+<body data-rsssl=1 class="post-template-default single single-post postid-4429 single-format-standard wp-custom-logo">
+	
+<header class="site-header">
+	
+	<div class="site-header-content">
+		
+			
+	<div class="site-logo"><a href="https://mundoapps.net/" class="custom-logo-link" rel="home noopener noreferrer" data-wpel-link="internal" target="_self"><img width="220" height="50" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20220%2050'%3E%3C/svg%3E" class="custom-logo" alt="Mundo Apps" data-lazy-srcset="https://mundoapps.net/wp-content/uploads/2020/01/Banner-Original.png 220w, https://mundoapps.net/wp-content/uploads/2020/01/Banner-Original-180x41.png 180w" data-lazy-sizes="(max-width: 220px) 100vw, 220px" data-lazy-src="https://mundoapps.net/wp-content/uploads/2020/01/Banner-Original.png" /><noscript><img width="220" height="50" src="https://mundoapps.net/wp-content/uploads/2020/01/Banner-Original.png" class="custom-logo" alt="Mundo Apps" srcset="https://mundoapps.net/wp-content/uploads/2020/01/Banner-Original.png 220w, https://mundoapps.net/wp-content/uploads/2020/01/Banner-Original-180x41.png 180w" sizes="(max-width: 220px) 100vw, 220px" /></noscript></a></div>
+
+	
+					
+			
+	<div class="search-header">
+
+		<form action="https://mundoapps.net/" method="get">
+
+			<input autocomplete="off" id="search-header" placeholder="Buscar" value="" name="s" required>
+			
+			<button class="s-btn" type="submit" aria-label="search-header">
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather main-color feather-search glyphicon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+			</button>
+
+		</form>	
+
+	</div>
+
+						
+		<div>
+	
+		
+	<input type="checkbox" id="btn-menu" />
+	
+	<label id="nav-icon" for="btn-menu">
+
+		<div class="circle nav-icon">
+
+			<span class="line top"></span>
+			<span class="line middle"></span>
+			<span class="line bottom"></span>
+
+		</div>
+		
+	</label>
+	
+	
+	<nav id="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+		
+		
+		<div class="search-responsive">
+
+			<form action="https://mundoapps.net/" method="get">
+				
+				<input autocomplete="off" id="search-menu" placeholder="Buscar" value="" name="s" required>
+								
+				<button class="s-btn" type="submit" aria-label="search-menu"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather main-color feather-search glyphicon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+			
+			</form>	
+
+		</div>
+
+		
+		<ul id="menu-principal" class="abc"><li id="menu-item-2041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2041"><a href="https://mundoapps.net" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Inicio</a></li>
+<li id="menu-item-2049" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2049"><a href="https://mundoapps.net/apps-android/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Android</a></li>
+<li id="menu-item-2050" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2050"><a href="https://mundoapps.net/apps-ios/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">IOS</a></li>
+<li id="menu-item-2051" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2051"><a href="https://mundoapps.net/apps-windows/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Windows</a></li>
+<li id="menu-item-2053" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-2053"><a href="https://mundoapps.net/tutoriales/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Tutoriales</a></li>
+<li id="menu-item-3535" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3535"><a href="https://mundoapps.net/redes-sociales/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Redes Sociales</a></li>
+<li id="menu-item-3534" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3534"><a href="https://mundoapps.net/informatica/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Informática</a></li>
+<li id="menu-item-19201" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-19201"><a href="#" itemprop="url">MÁS</a>
+<ul class="sub-menu">
+	<li id="menu-item-3533" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3533"><a href="https://mundoapps.net/comparativas/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Comparativas</a></li>
+	<li id="menu-item-2052" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2052"><a href="https://mundoapps.net/generalidades/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Generalidades</a></li>
+</ul>
+</li>
+</ul>		
+	</nav> 
+	
+</div>						
+	</div>
+	
+</header>
+<main class="content-single">
+
+		
+			
+			
+	<article class="article-full">
+		
+		
+	
+		
+		
+		<h1>Que Es Un Sistema Informático. Definición Y Novedades</h1>
+		
+				
+		
+		
+		
+	
+		
+	
+	
+				
+		<div class="the-content">
+				
+	<div class="wprt-container"><p style="text-align: justify;">Con los avances tecnológicos que ha habido en los últimos 100 años con las computadoras, las personas cada vez quisieran saber más sobre ellas, una de las preguntas más frecuentes que se hacen los usuarios es de <strong>que</strong> <strong>es un sistema informático.</strong></p>
+<p style="text-align: justify;">El sistema informático está compuesto por un (sub) sistema de hardware y un (sub) sistema de software. La primera es una combinación orgánica de varios componentes físicos basada en los principios de electricidad, magnetismo, luz y maquinaria, es la entidad en la que funciona el sistema.</p>
+<p style="text-align: justify;">Estos últimos son varios procedimientos y documentos utilizados para dirigir todo el sistema a trabajar de acuerdo con los requisitos especificados.</p>
+<blockquote>
+<p style="text-align: center;"><em><strong>También te puede interesar: <a href="https://mundoapps.net/que-es-un-programa-en-informatica/" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Qué Es Un Programa En Informática</a></strong></em></p>
+</blockquote>
+<div class="post-index"><span>Índice<span class="btn-show">(<input type="button" id="show-table" value="mostrar" />)</span></span><ul id="index-table"></ul></div><h2 style="text-align: justify;"><strong>Que es un sistema informático</strong></h2>
+<p style="text-align: justify;">Desde la aparición de la primera computadora electrónica en 1946, la tecnología informática ha logrado un progreso sorprendente en componentes, estructuras de sistemas de hardware, sistemas de software y aplicaciones.</p>
+<p style="text-align: justify;">Los sistemas informáticos modernos van desde microcomputadoras y computadoras personales hasta supercomputadoras y la red, con diversas formas y características, se ha utilizado ampliamente en informática científica, procesamiento de transacciones y control de procesos, y ha sobresalido cada vez más en diversos campos de la sociedad, y tiene un profundo impacto en el progreso social.</p>
+<figure id="attachment_4461" aria-describedby="caption-attachment-4461" style="width: 700px" class="wp-caption aligncenter"><img loading="lazy" class="wp-image-4461 size-full" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20700%20400'%3E%3C/svg%3E" alt="Que es un sistema informático" width="700" height="400" data-lazy-srcset="https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático-300x171.jpg 300w" data-lazy-sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 1" data-lazy-src="https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático.jpg"><noscript><img loading="lazy" class="wp-image-4461 size-full" src="https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático.jpg" alt="Que es un sistema informático" width="700" height="400" srcset="https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático-300x171.jpg 300w" sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 1"></noscript><figcaption id="caption-attachment-4461" class="wp-caption-text">Que es un sistema informático</figcaption></figure>
+<p style="text-align: justify;">Hay dos tipos de computadoras electrónicas: digitales y analógicas. En términos generales, la computadora se refiere a una computadora digital, y los datos procesados por su operación están representados por cantidades digitales discretas. Y la operación de procesamiento de datos de la computadora analógica está representada por un análogo continuo.</p>
+<p style="text-align: justify;">En comparación con las máquinas digitales, las máquinas analógicas son rápidas, tienen interfaces simples con dispositivos físicos, pero tienen baja precisión, uso difícil, poca estabilidad y confiabilidad, y altos precios.</p>
+<p style="text-align: justify;">Por lo tanto, el simulador se ha vuelto obsoleto y solo se usa en ocasiones que requieren una respuesta rápida pero poca precisión. La computadora híbrida que combina las ventajas de los dos tiene una cierta vitalidad.</p>
+<h2 style="text-align: justify;">Características de un sistema informático</h2>
+<p style="text-align: justify;">El sistema informático se caracteriza por cálculos y juicios precisos y rápidos, buena versatilidad, fácil de usar y puede conectarse a una red.</p>
+<ul>
+<li style="text-align: justify;"><strong>Cálculo</strong>: las computadoras pueden realizar casi todos los cálculos complejos mediante operaciones aritméticas y lógicas.</li>
+<li style="text-align: justify;"><strong>Juicio</strong>: la computadora tiene la capacidad de distinguir diferentes situaciones y elegir diferentes procesamientos, por lo que puede usarse en administración, control, confrontación, toma de decisiones, razonamiento y otros campos.</li>
+<li style="text-align: justify;"><strong>Almacenamiento</strong>: las computadoras pueden almacenar grandes cantidades de información.</li>
+<li style="text-align: justify;"><strong>Más Rápido</strong>: el tiempo requerido para la operación de una computadora es tan pequeño como nanosegundos.</li>
+<li style="text-align: justify;"><strong>Fácil de usar</strong>: el rico software de alto rendimiento y la interfaz inteligente hombre-máquina lo facilitan enormemente.</li>
+<li style="text-align: justify;"><strong>Redes</strong>: múltiples sistemas informáticos pueden trascender los límites geográficos y compartir información remota y recursos de software con la ayuda de redes de comunicación.</li>
+</ul>
+<h2 style="text-align: justify;">Composición</h2>
+<p style="text-align: justify;">El <strong><a href="https://es.wikipedia.org/wiki/N%C3%BAcleo_(inform%C3%A1tica)#:~:text=En%20inform%C3%A1tica%2C%20un%20n%C3%BAcleo%20o,conocido%20tambi%C3%A9n%20como%20modo%20n%C3%BAcleo)." target="_blank" rel="noopener external noreferrer" data-wpel-link="external">kernel</a> </strong>es un sistema de hardware, un dispositivo físico real para el procesamiento de información. La capa más externa es la persona que usa la computadora, el usuario. La interfaz entre el sistema humano y el hardware es un sistema de software, que se puede dividir aproximadamente en tres capas: software del sistema, software de soporte y software de aplicación.</p>
+<h3 style="text-align: justify;">Hardware</h3>
+<p style="text-align: justify;">El sistema de hardware se compone principalmente de una unidad central de procesamiento, memoria, sistema de control de entrada y salida y varios equipos externos. La unidad central de procesamiento es el componente principal para el procesamiento de información a alta velocidad, y su velocidad de procesamiento puede alcanzar cientos de millones de operaciones por segundo.</p>
+<figure id="attachment_4459" aria-describedby="caption-attachment-4459" style="width: 700px" class="wp-caption aligncenter"><img loading="lazy" class="wp-image-4459 size-full" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20700%20400'%3E%3C/svg%3E" alt="Hardware" width="700" height="400" data-lazy-srcset="https://mundoapps.net/wp-content/uploads/2020/07/Hardware.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Hardware-300x171.jpg 300w" data-lazy-sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 2" data-lazy-src="https://mundoapps.net/wp-content/uploads/2020/07/Hardware.jpg"><noscript><img loading="lazy" class="wp-image-4459 size-full" src="https://mundoapps.net/wp-content/uploads/2020/07/Hardware.jpg" alt="Hardware" width="700" height="400" srcset="https://mundoapps.net/wp-content/uploads/2020/07/Hardware.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Hardware-300x171.jpg 300w" sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 2"></noscript><figcaption id="caption-attachment-4459" class="wp-caption-text">Hardware</figcaption></figure>
+<p style="text-align: justify;">Una memoria para almacenar programas, datos y archivos, a menudo causada por una memoria interna rápida (capacidad de hasta varios cientos de megabytes, o incluso la cantidad de bytes G) y una memoria externa lenta (capacidad de hasta decenas o cientos de G)composición.</p>
+<p style="text-align: justify;">Varios dispositivos externos de entrada y salida son convertidores de información entre el hombre y la máquina, y el sistema de control de entrada-salida gestiona el intercambio de información entre los dispositivos externos y la memoria principal (unidad central de procesamiento).</p>
+<h3 style="text-align: justify;">Software</h3>
+<p style="text-align: justify;">El software se divide en software del sistema, software de soporte y software de aplicación. El software del sistema se compone de sistema operativo, programa de utilidad, compilador, etc.</p>
+<p style="text-align: justify;">El sistema operativo implementa la gestión y el control de diversos recursos de software y hardware. Los programas de utilidad están diseñados para la comodidad de los usuarios, como la edición de texto.</p>
+<p style="text-align: justify;">La función del compilador es traducir el programa escrito por el usuario en lenguaje ensamblador o un cierto lenguaje de alto nivel en un programa de lenguaje máquina ejecutable por la máquina.</p>
+<figure id="attachment_4460" aria-describedby="caption-attachment-4460" style="width: 700px" class="wp-caption aligncenter"><img loading="lazy" class="wp-image-4460 size-full" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20700%20400'%3E%3C/svg%3E" alt="Software" width="700" height="400" data-lazy-srcset="https://mundoapps.net/wp-content/uploads/2020/07/Software.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Software-300x171.jpg 300w" data-lazy-sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 3" data-lazy-src="https://mundoapps.net/wp-content/uploads/2020/07/Software.jpg"><noscript><img loading="lazy" class="wp-image-4460 size-full" src="https://mundoapps.net/wp-content/uploads/2020/07/Software.jpg" alt="Software" width="700" height="400" srcset="https://mundoapps.net/wp-content/uploads/2020/07/Software.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Software-300x171.jpg 300w" sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 3"></noscript><figcaption id="caption-attachment-4460" class="wp-caption-text">Software</figcaption></figure>
+<h3 style="text-align: justify;"><strong>Firmware</strong></h3>
+<p style="text-align: justify;">El firmware es la programación que se escribe en la memoria no volátil de un dispositivo de hardware. La memoria no volátil es una forma de memoria estática de acceso aleatorio cuyo contenido se guarda cuando un dispositivo de hardware se apaga o pierde su fuente de alimentación externa.</p>
+<figure id="attachment_4458" aria-describedby="caption-attachment-4458" style="width: 700px" class="wp-caption aligncenter"><img loading="lazy" class="wp-image-4458 size-full" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20700%20400'%3E%3C/svg%3E" alt="Firmware" width="700" height="400" data-lazy-srcset="https://mundoapps.net/wp-content/uploads/2020/07/Firmware.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Firmware-300x171.jpg 300w" data-lazy-sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 4" data-lazy-src="https://mundoapps.net/wp-content/uploads/2020/07/Firmware.jpg"><noscript><img loading="lazy" class="wp-image-4458 size-full" src="https://mundoapps.net/wp-content/uploads/2020/07/Firmware.jpg" alt="Firmware" width="700" height="400" srcset="https://mundoapps.net/wp-content/uploads/2020/07/Firmware.jpg 700w, https://mundoapps.net/wp-content/uploads/2020/07/Firmware-300x171.jpg 300w" sizes="(max-width: 700px) 100vw, 700px" title="Que Es Un Sistema Informático. Definición Y Novedades 4"></noscript><figcaption id="caption-attachment-4458" class="wp-caption-text">Firmware</figcaption></figure>
+<p style="text-align: justify;">El firmware se añade en el momento de la fabricación, se utiliza para ejecutar programas de usuario en el dispositivo y puede considerarse como el software que permite ejecutar el hardware.</p>
+<p style="text-align: justify;">Los fabricantes de hardware utilizan el firmware incorporado para controlar las funciones de varios dispositivos y sistemas de hardware, de manera muy similar a como el sistema operativo (SO) de una computadora controla la función de las aplicaciones de software.</p>
+<p style="text-align: justify;">El firmware puede escribirse en la memoria de solo lectura (ROM), en la memoria de solo lectura programable y borrable (EPROM) o en la memoria flash. El firmware que está incorporado en los chips de memoria flash puede actualizarse más fácilmente que el firmware escrito en la ROM o EPROM, lo que lo hace más adaptable.</p>
+<h2 style="text-align: justify;">Avances de un sistema informático</h2>
+<p style="text-align: justify;">El sistema informático se actualiza aproximadamente cada 3 a 5 años, la relación rendimiento-precio se multiplica por diez y el volumen se reduce considerablemente. La tecnología de circuito integrado a muy gran escala continuará desarrollándose rápidamente y tendrá un impacto enorme y profundo en varios sistemas informáticos.</p>
+<p style="text-align: justify;">Han aparecido microcomputadoras de 32 bits, y también han salido microcomputadoras de 64 bits. No está lejos hacer 10 millones de componentes en un solo chip.</p>
+<p style="text-align: justify;">La investigación en dispositivos que son 10 a 100 veces más rápidos que los circuitos integrados de, como arseniuro de galio, dispositivos de alta movilidad de electrones, uniones josephson y componentes ópticos, tendrá resultados importantes.</p>
+<p style="text-align: justify;">La tecnología de microensamblaje para aumentar la densidad de ensamblaje y acortar la línea de interconexión es una de las tecnologías clave de la nueva generación de computadoras. La comunicación por fibra óptica será ampliamente utilizada.</p>
+<p style="text-align: justify;">Varios dispositivos periféricos inteligentes de alta velocidad emergen constantemente, y la llegada de los discos ópticos hará que el almacenamiento masivo auxiliar sea completamente nuevo. Los sistemas de múltiples computadoras y los sistemas de procesamiento distribuido serán estructuras de sistema llamativos.</p>
+<h3 style="text-align: justify;">Fortalecimiento del software</h3>
+<p style="text-align: justify;">El fortalecimiento del software (llamado firmware) es una tendencia de desarrollo. Se han comenzado a utilizar en la práctica nuevos tipos de máquinas que no son de Neumann, computadoras de razonamiento, computadoras de base de conocimiento, etc. El desarrollo de software eliminará el atraso y la ineficiencia. La está desarrollando en profundidad.</p>
+<p style="text-align: justify;">La producción de software se está desarrollando en la dirección de ingeniería, formalización, automatización, modularización e integración. La investigación de nuevos lenguajes de alto nivel, como lenguajes lógicos, lenguajes funcionales e inteligencia artificial, hará que las interfaces hombre-máquina sean simples y naturales (puede ver, escuchar, hablar y dibujar directamente). La tecnología de bases de datos se desarrollará en gran medida. Estarán muy extendidas.</p>
+<p style="text-align: justify;">Los sistemas informáticos de próxima generación se caracterizan por una gran potencia de procesamiento (por ejemplo, 10 a 100 mil millones de operaciones por segundo), una gran base de conocimiento e información y una alta inteligencia se están desarrollando vigorosamente. Las aplicaciones informáticas se extenderán cada vez más.</p>
+</div>		
+	<div class="content-tags"><a href="https://mundoapps.net/tag/que-es-un-sistema-informatico/" rel="tag noopener noreferrer" data-wpel-link="internal" target="_self">que es un sistema informático</a><a href="https://mundoapps.net/tag/sistema-informatico/" rel="tag noopener noreferrer" data-wpel-link="internal" target="_self">sistema informático</a></div>			
+					
+	
+	</div>
+
+	
+<div class="social-buttons flexbox">
+		
+		
+	<a href="https://www.facebook.com/sharer/sharer.php?u=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-facebook" title="Compartir en Facebook" target="_blank" rel="nofollow noopener noreferrer external" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"  fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg></a>
+	
+		
+		
+	<a href="fb-messenger://share/?link=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-facebook-m" title="Compartir en Facebook Messenger" target="_self" rel="nofollow noopener noreferrer" data-wpel-link="internal"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-messenger" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 20l1.3 -3.9a9 8 0 1 1 3.4 2.9l-4.7 1" /><path d="M8 13l3 -2l2 2l3 -2" /></svg></a>
+	
+			
+	
+		
+	<a href="https://twitter.com/intent/tweet?text=Que Es Un Sistema Informático. Definición Y Novedades&amp;url=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-twitter" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en Twitter" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" /></svg></a>
+	
+		
+	
+		
+	<a href="https://pinterest.com/pin/create/button/?url=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/&amp;media=https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático-300x300.jpg" class="asap-icon-single icon-pinterest" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en Pinterest" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-pinterest" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="8" y1="20" x2="12" y2="11" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><circle cx="12" cy="12" r="9" /></svg></a>
+	
+		
+	
+		
+	<a href="https://wa.me/?text=Que Es Un Sistema Informático. Definición Y Novedades%20-%20https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-whatsapp" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en WhatsApp" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /> <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg></a>	
+	
+		
+			
+			
+		
+	<a href="https://t.me/share/url?url=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/&amp;text=Que Es Un Sistema Informático. Definición Y Novedades" class="asap-icon-single icon-telegram" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en Telegram" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg></a>	
+
+		
+	
+		
+	
+</div>
+<div id="comentarios" class="area-comentarios">
+	
+	
+		<div id="respond" class="comment-respond">
+		<p class="title-with-bar">Deja una respuesta <small><a rel="nofollow noopener noreferrer" id="cancel-comment-reply-link" href="/que-es-un-sistema-informatico-definicion-y-novedades/#respond" style="display:none;" data-wpel-link="internal" target="_self">Cancelar la respuesta</a></small></p><form action="https://mundoapps.net/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-notes"><span id="email-notes">Tu dirección de correo electrónico no será publicada.</span> Los campos obligatorios están marcados con <span class="required">*</span></p><input placeholder="Nombre *" id="author" name="author" type="text" value="" size="30" aria-required='true' />
+<div class="fields-wrap"><input placeholder="Correo electrónico *" id="email" name="email" type="text" value="" size="30" aria-required='true' />
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /> <label for="wp-comment-cookies-consent">Guarda mi nombre, correo electrónico y web en este navegador para la próxima vez que comente.</label></p>
+<textarea autocomplete="new-password"  placeholder="Comentario" id="ba5b13e60e"  name="ba5b13e60e"   cols="45" rows="5" aria-required="true"></textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="new-password" style="padding:0 !important;clip:rect(1px, 1px, 1px, 1px) !important;position:absolute !important;white-space:nowrap !important;height:1px !important;width:1px !important;overflow:hidden !important;" tabindex="-1"></textarea><script type="rocketlazyloadscript" data-noptimize data-rocket-type="text/javascript">document.getElementById("comment").setAttribute( "id", "af6530f37abd7878b5fbfb45d0fbfaa2" );document.getElementById("ba5b13e60e").setAttribute( "id", "comment" );</script><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Publicar el comentario" /> <input type='hidden' name='comment_post_ID' value='4429' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p></form>	</div><!-- #respond -->
+	
+	
+</div>
+	<div class="social-fix">
+			
+	
+<div class="social-buttons flexbox">
+		
+		
+	<a href="https://www.facebook.com/sharer/sharer.php?u=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-facebook" title="Compartir en Facebook" target="_blank" rel="nofollow noopener noreferrer external" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"  fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg></a>
+	
+		
+		
+	<a href="fb-messenger://share/?link=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-facebook-m" title="Compartir en Facebook Messenger" target="_self" rel="nofollow noopener noreferrer" data-wpel-link="internal"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-messenger" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 20l1.3 -3.9a9 8 0 1 1 3.4 2.9l-4.7 1" /><path d="M8 13l3 -2l2 2l3 -2" /></svg></a>
+	
+			
+	
+		
+	<a href="https://twitter.com/intent/tweet?text=Que Es Un Sistema Informático. Definición Y Novedades&amp;url=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-twitter" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en Twitter" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" /></svg></a>
+	
+		
+	
+		
+	<a href="https://pinterest.com/pin/create/button/?url=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/&amp;media=https://mundoapps.net/wp-content/uploads/2020/07/Que-es-un-sistema-informático-300x300.jpg" class="asap-icon-single icon-pinterest" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en Pinterest" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-pinterest" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="8" y1="20" x2="12" y2="11" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><circle cx="12" cy="12" r="9" /></svg></a>
+	
+		
+	
+		
+	<a href="https://wa.me/?text=Que Es Un Sistema Informático. Definición Y Novedades%20-%20https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/" class="asap-icon-single icon-whatsapp" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en WhatsApp" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /> <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg></a>	
+	
+		
+			
+			
+		
+	<a href="https://t.me/share/url?url=https://mundoapps.net/que-es-un-sistema-informatico-definicion-y-novedades/&amp;text=Que Es Un Sistema Informático. Definición Y Novedades" class="asap-icon-single icon-telegram" target="_blank" rel="nofollow noopener noreferrer external" title="Compartir en Telegram" data-wpel-link="external"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg></a>	
+
+		
+	
+		
+	
+</div>			
+	</div>	
+
+				
+	</article>
+	
+		
+		
+</main>
+
+ 
+
+	
+			
+		<span class="go-top"><span>Subir</span><i class="arrow arrow-up"></i></span>
+		
+	
+	
+	
+	<footer>
+	
+		<div class="content-footer">
+
+			<div class="widget-content-footer">
+				
+				
+								
+					<div class="widget-area">			<div class="textwidget"><p><img loading="lazy" class="size-full wp-image-1646 aligncenter" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20220%2050'%3E%3C/svg%3E" alt="logo" width="220" height="50" data-lazy-srcset="https://mundoapps.net/wp-content/uploads/2020/03/Banner-Blanco.png 220w, https://mundoapps.net/wp-content/uploads/2020/03/Banner-Blanco-180x41.png 180w" data-lazy-sizes="(max-width: 220px) 100vw, 220px" data-lazy-src="https://mundoapps.net/wp-content/uploads/2020/03/Banner-Blanco.png" /><noscript><img loading="lazy" class="size-full wp-image-1646 aligncenter" src="https://mundoapps.net/wp-content/uploads/2020/03/Banner-Blanco.png" alt="logo" width="220" height="50" srcset="https://mundoapps.net/wp-content/uploads/2020/03/Banner-Blanco.png 220w, https://mundoapps.net/wp-content/uploads/2020/03/Banner-Blanco-180x41.png 180w" sizes="(max-width: 220px) 100vw, 220px" /></noscript></p>
+<p>En mundoapps.net encontrarás aplicaciones, tutoriales y todo lo necesario para optimizar tu móvil o pc con las apps más actuales y útiles del momento. Además contamos con tutoriales para manejar todas y cada una de estas aplicaciones. Guías de uso para las redes sociales más populares del momento. Información relacionada con programas, páginas web y aplicaciones de uso común.</p>
+</div>
+		</div><div class="widget-area"><p class="widget-title">Menú principal</p><div class="menu-principal-container"><ul id="menu-principal-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2041"><a href="https://mundoapps.net" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Inicio</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2049"><a href="https://mundoapps.net/apps-android/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Android</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2050"><a href="https://mundoapps.net/apps-ios/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">IOS</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2051"><a href="https://mundoapps.net/apps-windows/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Windows</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-2053"><a href="https://mundoapps.net/tutoriales/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Tutoriales</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3535"><a href="https://mundoapps.net/redes-sociales/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Redes Sociales</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3534"><a href="https://mundoapps.net/informatica/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Informática</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-19201"><a href="#" itemprop="url">MÁS</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3533"><a href="https://mundoapps.net/comparativas/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Comparativas</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2052"><a href="https://mundoapps.net/generalidades/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Generalidades</a></li>
+</ul>
+</li>
+</ul></div></div><div class="widget-area"><p class="widget-title">Menú secundario</p><div class="menu-footer-menu-container"><ul id="menu-footer-menu" class="menu"><li id="menu-item-2054" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-2054"><a href="https://mundoapps.net/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Inicio</a></li>
+<li id="menu-item-2055" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2055"><a href="https://mundoapps.net/aviso-legal/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Aviso legal</a></li>
+<li id="menu-item-2057" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2057"><a href="https://mundoapps.net/ley-de-cookies/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Ley de Cookies</a></li>
+<li id="menu-item-2058" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2058"><a href="https://mundoapps.net/politicas-de-privacidad/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Políticas de privacidad</a></li>
+<li id="menu-item-2067" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2067"><a href="https://mundoapps.net/contactame/" itemprop="url" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Contacto</a></li>
+</ul></div></div>
+		<div class="widget-area">
+		<p class="widget-title">Entradas recientes</p>
+		<ul>
+											<li>
+					<a href="https://mundoapps.net/alternativas-a-grindr/" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Top 10 Alternativas A Grindr Para Encontrar Pareja Gay</a>
+									</li>
+											<li>
+					<a href="https://mundoapps.net/alternativas-a-recuva/" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Las 5 Mejores Alternativas A Recuva Para Recuperar Archivos</a>
+									</li>
+											<li>
+					<a href="https://mundoapps.net/alternativas-a-slack/" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Top 10 Alternativas A Slack Para Gestionar Proyectos Y Tareas</a>
+									</li>
+											<li>
+					<a href="https://mundoapps.net/alternativas-a-obs/" data-wpel-link="internal" target="_self" rel="noopener noreferrer">7 Alternativas A OBS Studio: Los Mejores Software De Grabación De Pantalla</a>
+									</li>
+											<li>
+					<a href="https://mundoapps.net/alternativas-a-spare5/" data-wpel-link="internal" target="_self" rel="noopener noreferrer">Top 9 Alternativas A Spare5: Aplicaciones Para Ganar Dinero</a>
+									</li>
+					</ul>
+
+		</div>				
+								
+								
+								
+				
+			</div>
+			
+		</div>
+
+	</footer>
+
+	
+
+	
+	<script data-minify="1" type='text/javascript' src='https://mundoapps.net/wp-content/cache/min/1/ajax/libs/jquery/3.5.1/jquery.min.js?ver=1623603408' defer onload='' id='jquery-js'></script>
+<script type='text/javascript' src='https://mundoapps.net/wp-includes/js/comment-reply.min.js?ver=5.7.3' defer onload='' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=7.4.4' defer onload='' id='wp-polyfill-js'></script>
+<script type='text/javascript' id='wp-polyfill-js-after'>
+( 'fetch' in window ) || document.write( '<script src="https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0' defer onload='"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0' defer onload='"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0' defer onload='"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4' defer onload='"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12' defer onload='"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2' defer onload='"></scr' + 'ipt>' );( 'objectFit' in document.documentElement.style ) || document.write( '<script src="https://mundoapps.net/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js?ver=2.3.4' defer onload='"></scr' + 'ipt>' );
+</script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/mundoapps.net\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script data-minify="1" type='text/javascript' src='https://mundoapps.net/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1623603408' defer onload='' id='contact-form-7-js'></script>
+<script type='text/javascript' id='ta_main_js-js-extra'>
+/* <![CDATA[ */
+var thirsty_global_vars = {"home_url":"\/\/mundoapps.net","ajax_url":"https:\/\/mundoapps.net\/wp-admin\/admin-ajax.php","link_fixer_enabled":"yes","link_prefix":"go","link_prefixes":["recommends","go"],"post_id":"4429","enable_record_stats":"yes","enable_js_redirect":"yes","disable_thirstylink_class":""};
+/* ]]> */
+</script>
+<script data-minify="1" type='text/javascript' src='https://mundoapps.net/wp-content/cache/min/1/wp-content/plugins/thirstyaffiliates/js/app/ta.js?ver=1623603408' defer onload='' id='ta_main_js-js'></script>
+<script type='text/javascript' id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/mundoapps.net","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type='text/javascript' src='https://mundoapps.net/wp-content/themes/AsapTheme/assets/js/asap.min.js?ver=3.7.4' defer onload='' id='load_asap_scripts-js'></script>
+<script data-minify="1" type='text/javascript' src='https://mundoapps.net/wp-content/cache/min/1/wp-content/plugins/wp-responsive-table/assets/frontend/js/wprt-script.js?ver=1623603408' defer onload='' id='wprt-script-js'></script>
+
+
+<script src="https://mundoapps.net/wp-content/plugins/shortpixel-image-optimiser/res/js/jquery.knob.min.js?ver=5.7.3' defer onload='" defer="defer" type="text/javascript"></script>
+<script type='text/javascript' id='shortpixel-js-extra'>
+/* <![CDATA[ */
+var _spTr = {"optimizeWithSP":"Optimizar con ShortPixel","redoLossy":"Reoptimizar con p\u00e9rdida","redoGlossy":"Reoptimizar Glossy","redoLossless":"Reoptimizar sin p\u00e9rdida","restoreOriginal":"Restaurar originales","changeMLToListMode":"Para acceder a las acciones e informaci\u00f3n de la optimizaci\u00f3n de ShortPixel, por favor, cambia a la {0}vista de lista{1}vista de lista{2}Descartar{3}","alertOnlyAppliesToNewImages":"Este tipo de optimizaci\u00f3n se aplicar\u00e1 a las nuevas im\u00e1genes subidas. Las im\u00e1genes que ya se procesaron no se volver\u00e1n a optimizar a menos que reinicies el proceso en lote.","areYouSureStopOptimizing":"\u00bfEst\u00e1s seguro de que quieres dejar de optimizar la carpeta {0}?","reducedBy":"Reducido un","bonusProcessing":"Proceso de extra","plusXthumbsOpt":"+{0} Miniaturas optimizadas","plusXretinasOpt":"+{0} Im\u00e1genes retina optimizadas","optXThumbs":"Optimizar {0} miniaturas","reOptimizeAs":"Reoptimizar {0}","restoreBackup":"Restaurar copia de seguridad","getApiKey":"Obtener Clave de API","extendQuota":"Ampliar la cuota","check__Quota":"Comprobar\u00a0\u00a0cuota","retry":"Reintentar","thisContentNotProcessable":"Este contenido no se puede procesar.","imageWaitOptThumbs":"Imagen en espera para optimizar las miniaturas","pleaseDoNotSetLesserSize":"Por favor, no establezcas un {0} menor que el {1} de la miniatura m\u00e1s grande que es {2}, para a\u00fan poder regenerar todas tus miniaturas en caso de que alguna vez lo necesites.","pleaseDoNotSetLesser1024":"Por favor, no configures un {0} inferior a 1024, para a\u00fan poder regenerar todas tus miniaturas en caso de que lo necesites.","confirmBulkRestore":"\u00bfEst\u00e1s seguro de que quieres restaurar la copia de seguridad de todas tus im\u00e1genes en la biblioteca de medios optimizadas con ShortPixel?","confirmBulkCleanup":"\u00bfEst\u00e1s seguro de que quieres limpiar la informaci\u00f3n de ShortPixel en los metadatos de las im\u00e1genes en tu librer\u00eda de medios ya optimizada con ShortPixel? Esto har\u00e1 que Shortpixel olvide que ya las optimiz\u00f3 y las volver\u00e1 a optimizar si tu vuelves a arrancar un proceso de optmizaci\u00f3n masivo.","confirmBulkCleanupPending":"\u00bfEst\u00e1s seguro de que quieres limpiar los metadatos pendientes?","alertDeliverWebPAltered":"Advertencia: el uso de este m\u00e9todo altera la estructura del c\u00f3digo HTML representado (las etiquetas IMG se incluyen en etiquetas PICTURE),\nlo que en algunos raros casos puede dar lugar a inconsistencias CSS\/JS.\n\nPor favor, \u00a1prueba esta funcionalidad a fondo despu\u00e9s de activarla!\n\nSi observas alg\u00fan problema, simplemente desact\u00edvalo y el HTML volver\u00e1 al estado anterior.","alertDeliverWebPUnaltered":"Esta opci\u00f3n servir\u00e1 tanto el WebP como la imagen original usando la misma URL, seg\u00fan las capacidades del navegador web. Aseg\u00farate de que est\u00e1s sirviendo las im\u00e1genes desde tu servidor y que no est\u00e1s usando un CDN que guarda las im\u00e1genes.","originalImage":"Imagen original","optimizedImage":"Imagen optimizada","loading":"Cargando..."};
+var ShortPixelConstants = [{"STATUS_SUCCESS":1,"STATUS_EMPTY_QUEUE":0,"STATUS_ERROR":-1,"STATUS_FAIL":-2,"STATUS_QUOTA_EXCEEDED":-3,"STATUS_SKIP":-4,"STATUS_NO_KEY":-6,"STATUS_RETRY":-7,"STATUS_QUEUE_FULL":-404,"STATUS_MAINTENANCE":-500,"STATUS_SEARCHING":-8,"WP_PLUGIN_URL":"https:\/\/mundoapps.net\/wp-content\/plugins\/shortpixel-image-optimiser","WP_ADMIN_URL":"https:\/\/mundoapps.net\/wp-admin\/","API_IS_ACTIVE":true,"DEFAULT_COMPRESSION":1,"MEDIA_ALERT":"todo","FRONT_BOOTSTRAP":1,"AJAX_URL":"https:\/\/mundoapps.net\/wp-admin\/admin-ajax.php","BULK_SECRET":false}];
+var ShortPixelActions = {"nonce_check_quota":"9f41e5dc18"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://mundoapps.net/wp-content/plugins/shortpixel-image-optimiser/res/js/shortpixel.min.js?ver=4.22.6' defer onload='' id='shortpixel-js'></script>
+<script src="https://mundoapps.net/wp-content/plugins/shortpixel-image-optimiser/res/js/jquery.tooltip.min.js?ver=5.7.3' defer onload='" defer="defer" type="text/javascript"></script>
+<script src="https://mundoapps.net/wp-content/plugins/shortpixel-image-optimiser/res/js/punycode.min.js?ver=5.7.3' defer onload='" defer="defer" type="text/javascript"></script>
+<script>window.lazyLoadOptions = {
+                elements_selector: "img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",
+                data_src: "lazy-src",
+                data_srcset: "lazy-srcset",
+                data_sizes: "lazy-sizes",
+                class_loading: "lazyloading",
+                class_loaded: "lazyloaded",
+                threshold: 300,
+                callback_loaded: function(element) {
+                    if ( element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible" ) {
+                        if (element.classList.contains("lazyloaded") ) {
+                            if (typeof window.jQuery != "undefined") {
+                                if (jQuery.fn.fitVids) {
+                                    jQuery(element).parent().fitVids();
+                                }
+                            }
+                        }
+                    }
+                }};
+        window.addEventListener('LazyLoad::Initialized', function (e) {
+            var lazyLoadInstance = e.detail.instance;
+
+            if (window.MutationObserver) {
+                var observer = new MutationObserver(function(mutations) {
+                    var image_count = 0;
+                    var iframe_count = 0;
+                    var rocketlazy_count = 0;
+
+                    mutations.forEach(function(mutation) {
+                        for (i = 0; i < mutation.addedNodes.length; i++) {
+                            if (typeof mutation.addedNodes[i].getElementsByTagName !== 'function') {
+                                return;
+                            }
+
+                           if (typeof mutation.addedNodes[i].getElementsByClassName !== 'function') {
+                                return;
+                            }
+
+                            images = mutation.addedNodes[i].getElementsByTagName('img');
+                            is_image = mutation.addedNodes[i].tagName == "IMG";
+                            iframes = mutation.addedNodes[i].getElementsByTagName('iframe');
+                            is_iframe = mutation.addedNodes[i].tagName == "IFRAME";
+                            rocket_lazy = mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');
+
+                            image_count += images.length;
+			                iframe_count += iframes.length;
+			                rocketlazy_count += rocket_lazy.length;
+
+                            if(is_image){
+                                image_count += 1;
+                            }
+
+                            if(is_iframe){
+                                iframe_count += 1;
+                            }
+                        }
+                    } );
+
+                    if(image_count > 0 || iframe_count > 0 || rocketlazy_count > 0){
+                        lazyLoadInstance.update();
+                    }
+                } );
+
+                var b      = document.getElementsByTagName("body")[0];
+                var config = { childList: true, subtree: true };
+
+                observer.observe(b, config);
+            }
+        }, false);</script><script data-no-minify="1" async src="https://mundoapps.net/wp-content/plugins/rocket-lazy-load/assets/js/16.1/lazyload.min.js"></script><script>function lazyLoadThumb(e){var t='<img loading="lazy" data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.dataset.query.length?'':'&'+this.dataset.query;e.setAttribute("src",t.replace("ID",this.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
+  <script type="rocketlazyloadscript">"use strict";var wprRemoveCPCSS=function wprRemoveCPCSS(){var elem;document.querySelector('link[data-rocket-async="style"][rel="preload"]')?setTimeout(wprRemoveCPCSS,200):(elem=document.getElementById("rocket-critical-css"))&&"remove"in elem&&elem.remove()};window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link rel="stylesheet" href="https://mundoapps.net/wp-content/cache/min/1/bf0466ee37750a4ecf3240dd94acfd0c.css" media="all" data-minify="1" /><link rel='stylesheet' id='google-fonts-text-css'  href='https://fonts.googleapis.com/css?family=Poppins%3A300%2C700&#038;display=swap&#038;ver=5.7.3' type='text/css' media='all' /></noscript></body>
+</html>	
+	<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="auto-index" async defer>
+
+function indexContent(e){var t=document.querySelector(e);table=document.getElementById("index-table");const n=e=>e.normalize("NFD").replace(/[\u0300-\u036f]/g,"");for(var a=Array.from(t.querySelectorAll("h2,h3")),r=0,o=a.length;r<o;r++){var l=a[r],d=n(d=(d=a[r].textContent).replace(/ /g,"_"));l.setAttribute("id",d);var c=document.createElement("LI");"H3"==a[r].nodeName&&c.setAttribute("class","classh3");var u=document.createElement("A"),i=document.createTextNode(l.textContent);u.appendChild(i),u.setAttribute("href","#"+d),c.appendChild(u),0<i.length&&table.appendChild(c)}}indexContent(".content-single");				
+	</script>
+	
+	
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1634117751 -->
